@@ -1,9 +1,7 @@
-# .github/workflows/update-image-tag.yaml
-
 name: Manually Retag Docker Image
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
 
 jobs:
   retag:
@@ -16,16 +14,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Pull latest image from Docker Hub
+      - name: Pull latest image
         run: |
-          docker pull your-dockerhub-username/java-docker-demo:latest
+          docker pull samsharma/java-docker-demo:latest
 
       - name: Tag image with today's date
         run: |
           DATE=$(date +%Y-%m-%d)
-          docker tag your-dockerhub-username/java-docker-demo:latest your-dockerhub-username/java-docker-demo:v:$DATE
+          docker tag samsharma/java-docker-demo:latest samsharma/java-docker-demo:v:$DATE
 
-      - name: Push new image tag
+      - name: Push new tag
         run: |
           DATE=$(date +%Y-%m-%d)
-          docker push your-dockerhub-username/java-docker-demo:v:$DATE
+          docker push samsharma/java-docker-demo:v:$DATE
